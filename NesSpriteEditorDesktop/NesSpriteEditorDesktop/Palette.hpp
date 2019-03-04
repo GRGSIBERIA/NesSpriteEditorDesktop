@@ -4,16 +4,16 @@
 
 namespace nes
 {
-	// 4色セットのパレット
+	/**
+	* 4色セットのパレット
+	*/
 	class Palette
 	{
 		std::array<PaletteCode, 4> codes;
 
 	public:
-		/*
-		* コンストラクタ
-		*/
-
+		// コンストラクタ ---------------------------------------------------
+		
 		Palette(const PCode p1, const PCode p2, const PCode p3, const PCode p4)
 			: codes({ PaletteCode(p1), PaletteCode(p2), PaletteCode(p3), PaletteCode(p4)}) {}
 
@@ -27,9 +27,7 @@ namespace nes
 			: codes(codes) {}
 
 
-		/*
-		* アクセサ
-		*/
+		// アクセサ ---------------------------------------------------
 
 		const PaletteCode& GetCode(const int index) const { return codes[index]; }
 

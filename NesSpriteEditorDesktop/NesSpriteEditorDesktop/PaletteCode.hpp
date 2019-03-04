@@ -7,16 +7,16 @@ namespace nes
 
 	typedef unsigned char PCode;	// 数値のパレットコード型
 
-	// パレットコード
+	/*
+	* パレットコード
+	*/
 	class PaletteCode
 	{
 		PCode code;			// 色番号
 		s3d::Color color;	// 実際の色
 
 	public:
-		/**
-		* コンストラクタ
-		*/
+		// コンストラクタ ---------------------------------------------------
 
 		// @param paletteCode 色コード
 		PaletteCode(const PCode paletteCode)
@@ -25,20 +25,21 @@ namespace nes
 		// デフォルトコンストラクタ
 		PaletteCode() : code(0), color(GetColor(0)){}
 
-		/**
-		* オペレータ
-		*/
+		// オペレータ ---------------------------------------------------
 
 		PaletteCode& operator=(const PaletteCode& rhs) { code = rhs.code; color = rhs.color; }
 
-		/**
-		* アクセサ
-		*/
+		// アクセサ ---------------------------------------------------
 
 		const PCode GetCode() const { return code; }
 
 		const s3d::Color& GetColor() const { return color; }
 
+		// 関数など ---------------------------------------------------
+		
+		/**
+		* 色番号に従った実際の色を取得する関数
+		*/
 		static const s3d::Color& GetColor(const PCode paletteCode)
 		{
 			static const std::array<s3d::Color, 0x3F> ColorMap = {
