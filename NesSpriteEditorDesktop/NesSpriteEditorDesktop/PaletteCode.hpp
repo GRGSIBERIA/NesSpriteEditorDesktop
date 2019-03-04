@@ -5,7 +5,7 @@ namespace nes
 {
 	class IndexOutOfRangeException : public std::exception {};
 
-	typedef unsigned char PCode;
+	typedef unsigned char PCode;	// 数値のパレットコード型
 
 	// パレットコード
 	class PaletteCode
@@ -17,9 +17,10 @@ namespace nes
 		// @param paletteCode 色コード
 		PaletteCode(const PCode paletteCode)
 			: code((PCode)paletteCode), color(GetColor((PCode)paletteCode))
-		{
+		{}
 
-		}
+		// デフォルトコンストラクタ
+		PaletteCode() : code(0), color(GetColor(0)){}
 
 		const PCode GetCode() const { return code; }
 		const s3d::Color& GetColor() const { return color; }
