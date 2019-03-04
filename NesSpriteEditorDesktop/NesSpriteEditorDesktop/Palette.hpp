@@ -10,6 +10,10 @@ namespace nes
 		std::array<PaletteCode, 4> codes;
 
 	public:
+		/*
+		* コンストラクタ
+		*/
+
 		Palette(const PCode p1, const PCode p2, const PCode p3, const PCode p4)
 			: codes({ PaletteCode(p1), PaletteCode(p2), PaletteCode(p3), PaletteCode(p4)}) {}
 
@@ -21,5 +25,16 @@ namespace nes
 
 		Palette(const std::array<PaletteCode, 4>& codes)
 			: codes(codes) {}
+
+
+		/*
+		* アクセサ
+		*/
+
+		const PaletteCode& GetCode(const int index) const { return codes[index]; }
+
+		void SetCode(const int index, const PCode p) { codes[index] = PaletteCode(p); }
+
+		void SetCode(const int index, const PaletteCode& p) { codes[index] = p; }
 	};
 }

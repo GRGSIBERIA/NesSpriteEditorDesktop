@@ -10,19 +10,33 @@ namespace nes
 	// パレットコード
 	class PaletteCode
 	{
-		const PCode code;			// 色番号
-		const s3d::Color& color;	// 実際の色
+		PCode code;			// 色番号
+		s3d::Color color;	// 実際の色
 
 	public:
+		/**
+		* コンストラクタ
+		*/
+
 		// @param paletteCode 色コード
 		PaletteCode(const PCode paletteCode)
-			: code((PCode)paletteCode), color(GetColor((PCode)paletteCode))
-		{}
+			: code((PCode)paletteCode), color(GetColor((PCode)paletteCode)) {}
 
 		// デフォルトコンストラクタ
 		PaletteCode() : code(0), color(GetColor(0)){}
 
+		/**
+		* オペレータ
+		*/
+
+		PaletteCode& operator=(const PaletteCode& rhs) { code = rhs.code; color = rhs.color; }
+
+		/**
+		* アクセサ
+		*/
+
 		const PCode GetCode() const { return code; }
+
 		const s3d::Color& GetColor() const { return color; }
 
 		static const s3d::Color& GetColor(const PCode paletteCode)
