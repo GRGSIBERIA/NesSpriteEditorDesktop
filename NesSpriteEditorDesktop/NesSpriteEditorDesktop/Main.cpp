@@ -1,5 +1,6 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.3.1
+#include <Siv3D.hpp> // OpenSiv3D v0.3.1
+#include "ColorTable.hpp"
 
 void Main()
 {
@@ -7,15 +8,11 @@ void Main()
 
 	const Font font(60);
 
-	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
-
+	nes::ColorTable table;
+	
 	while (System::Update())
 	{
-		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
-
-		font(Cursor::Pos()).draw(20, 500, ColorF(0.6));
-
-		textureCat.resized(80).draw(700, 500);
+		table.Draw(Point(0, 0));
 
 		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}

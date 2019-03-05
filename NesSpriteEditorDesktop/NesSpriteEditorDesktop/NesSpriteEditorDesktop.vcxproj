@@ -263,6 +263,8 @@
     <Xml Include="App\example\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColorTable.hpp" />
+    <ClInclude Include="IDrawable.hpp" />
     <ClInclude Include="PaletteCode.hpp" />
     <ClInclude Include="Palette.hpp" />
   </ItemGroup>

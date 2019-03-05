@@ -1,5 +1,4 @@
 #pragma once
-#include <Siv3D.hpp>
 #include "PaletteCode.hpp"
 
 namespace nes
