@@ -26,7 +26,10 @@ namespace nes
 					const int index = (i << 4) | j;
 					const auto& color = PaletteCode::GetColor((PCode)index);
 
-					Rect(patchSize).setSize(patchSize).setPos(Point(patchSize.x * j, patchSize.y * i) + Point(position)).draw(color).drawFrame(1, Palette::Ivory);
+					Rect(patchSize).setSize(patchSize)
+						.setPos(Point(patchSize.x * j, patchSize.y * i) + Point(position))
+						.draw(color)
+						.drawFrame(1, Palette::Ivory);
 				}
 			}
 		}
