@@ -1,14 +1,16 @@
 #pragma once
 #include "PaletteCode.hpp"
+#include "DrawableObject.hpp"
 
 namespace nes
 {
 	/**
 	* 4色セットのパレット
 	*/
-	class Palette
+	class Palette : public DrawableObject
 	{
 		std::array<PaletteCode, 4> codes;
+		s3d::Size patchSize = s3d::Size(24, 24);
 
 	public:
 		// コンストラクタ ---------------------------------------------------
@@ -26,7 +28,7 @@ namespace nes
 			: codes(codes) {}
 
 		Palette()
-			: codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}) {}
+			: codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}), DrawableObject() {}
 
 
 		// アクセサ ---------------------------------------------------
@@ -36,6 +38,15 @@ namespace nes
 		void SetCode(const int index, const PCode p) { codes[index] = PaletteCode(p); }
 
 		void SetCode(const int index, const PaletteCode& p) { codes[index] = p; }
+
+		void SetSize(const s3d::Size& size) { patchSize = size; }
+
+		// メソッド ---------------------------------------------------
+
+		void Draw() override
+		{
+
+		}
 
 	};
 }

@@ -21,5 +21,7 @@ namespace nes
 		* À•W‚ğw’è
 		*/
 		void SetPos(const s3d::Point& pos) { position = pos; }
+
+		void SetPos(const int x, const int y) { position = s3d::Point(x, y); }
 	};
 }

@@ -29,12 +29,15 @@ namespace nes
 		{
 			for (int i = 0; i < 4; ++i)
 			{
-				paletteRects[i]
-					.setPos(position.x + patchSize.x * (i + 1), position.y)
-					.setSize(patchSize)
-					.draw(palettes[i].GetCode(i).GetColor());
+				//paletteRects[i]
+				//	.setPos(position.x + patchSize.x * (i + 1), position.y)
+				//	.setSize(patchSize)
+				//	.draw(palettes[i].GetCode(i).GetColor());
 
-				FontProvider::GetFont()(i).draw(position.x, position.y, s3d::Palette::Black);
+				FontProvider::GetFont()(i).draw(position.x, position.y + (patchSize.y * i), s3d::Palette::Black);
+
+				palettes[i].SetPos(position.x + patchSize.x, position.y);
+				palettes[i].Draw();
 
 				/*
 				Palette‚ðDrawableObject‚É•Ï‚¦‚ÄApalettes[i].draw()‚ÅŒÄ‚Ño‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚©‚à‚µ‚ê‚È‚¢
