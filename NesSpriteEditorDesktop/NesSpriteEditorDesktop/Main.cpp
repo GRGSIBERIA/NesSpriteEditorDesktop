@@ -4,11 +4,11 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	Graphics::SetBackground(Color(U"#F2F2F2"));
 
 	const Font font(60);
 
-	nes::ColorTable table;
+	nes::ColorTable& table = nes::ColorTableProvider::GetInstance();
 	
 	while (System::Update())
 	{

@@ -248,5 +248,8 @@
     <ClInclude Include="IDrawable.hpp">
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="SingletonProvider.hpp">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
