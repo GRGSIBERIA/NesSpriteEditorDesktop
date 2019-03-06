@@ -25,6 +25,9 @@ namespace nes
 		Palette(const std::array<PaletteCode, 4>& codes)
 			: codes(codes) {}
 
+		Palette()
+			: codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}) {}
+
 
 		// アクセサ ---------------------------------------------------
 
@@ -33,5 +36,6 @@ namespace nes
 		void SetCode(const int index, const PCode p) { codes[index] = PaletteCode(p); }
 
 		void SetCode(const int index, const PaletteCode& p) { codes[index] = p; }
+
 	};
 }

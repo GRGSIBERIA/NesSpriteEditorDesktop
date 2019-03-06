@@ -1,18 +1,15 @@
 #pragma once
 #include <Siv3D.hpp>
-#include "IDrawable.hpp"
+#include "DrawableObject.hpp"
 #include "PaletteCode.hpp"
 #include "SingletonProvider.hpp"
 
 namespace nes
 {
-	/// シングルトンのためのプロトタイプ宣言
-	class ColorTableProvider;
-
 	/**
 	* 色のテーブルクラス
 	*/
-	class ColorTable : public IDrawable
+	class ColorTable : public DrawableObject
 	{
 		friend SingletonProvider<ColorTable>;
 
@@ -21,14 +18,14 @@ namespace nes
 
 		// コンストラクタ ---------------------------------------------------
 
-		ColorTable(const s3d::Size& patchSize = s3d::Size(24, 24)) : patchSize(patchSize)
+		ColorTable(const s3d::Size& patchSize = s3d::Size(24, 24)) : patchSize(patchSize), DrawableObject()
 		{
 			for (PCode i = 0; i < 4; ++i)
 			{
 				for (PCode j = 0; j < 16; ++j)
 				{
 					const PCode index = (i << 4) | j;
-					paletteRects[index] = Rect(patchSize);
+					paletteRects[index] = Rect();
 				}
 			}
 		}
@@ -37,7 +34,7 @@ namespace nes
 
 		// メソッド ---------------------------------------------------
 
-		void Draw(const s3d::Point& position) override
+		void Draw() override
 		{
 			for (PCode i = 0; i < 4; ++i)
 			{
@@ -49,14 +46,24 @@ namespace nes
 
 					palette
 						.setPos(Point(patchSize.x * j, patchSize.y * i) + Point(position))
+						.setSize(patchSize)
 						.draw(color)
-						.drawFrame(1, Palette::Gray);
+						.drawFrame(1, s3d::Palette::Gray);
+				}
+			}
 
-					if (palette.leftClicked())
-					{
-						// 選択中のパレットに対してメッセージを通知
-						Logger << U"Message: leftClicked -> palette" << index;
-					}
+			Rect(position, s3d::Size(patchSize.x * 5, patchSize.y))
+				.drawFrame(1, s3d::Palette::Darkgray);
+		}
+
+		void Update()
+		{
+			for each (const auto& palette in paletteRects)
+			{
+				if (palette.leftClicked())
+				{
+					// 選択中のパレットに対してメッセージを通知
+					Logger << U"Message: leftClicked -> palette";
 				}
 			}
 		}

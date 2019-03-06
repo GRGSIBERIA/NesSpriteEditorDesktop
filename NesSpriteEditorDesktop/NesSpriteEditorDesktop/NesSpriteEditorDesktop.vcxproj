@@ -264,9 +264,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorTable.hpp" />
-    <ClInclude Include="IDrawable.hpp" />
+    <ClInclude Include="DrawableObject.hpp" />
+    <ClInclude Include="FontProvider.hpp" />
     <ClInclude Include="PaletteCode.hpp" />
     <ClInclude Include="Palette.hpp" />
+    <ClInclude Include="PaletteTable.hpp" />
     <ClInclude Include="SingletonProvider.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
