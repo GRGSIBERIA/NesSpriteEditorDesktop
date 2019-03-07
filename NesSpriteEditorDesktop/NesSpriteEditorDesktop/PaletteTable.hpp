@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D\Rectangle.hpp>
 #include "SingletonProvider.hpp"
 #include "Palette.hpp"
@@ -8,12 +8,16 @@
 namespace nes
 {
 	/**
-	* ƒpƒŒƒbƒg‚Ìƒe[ƒuƒ‹ƒNƒ‰ƒX
+	* ãƒ‘ãƒ¬ãƒƒãƒˆã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¯ãƒ©ã‚¹
 	*/
 	class PaletteTable : public DrawableObject
 	{
 		friend SingletonProvider<PaletteTable>;
 		typedef unsigned int SelectionID;
+
+		const std::array<s3d::Key, 4> rowKeys = { Key1, Key2, Key3, Key4 };
+		const std::array<std::u32string, 4> columnString = { U"Q", U"W", U"E", U"R" };
+		const std::array<std::u32string, 4> rowString = { U"1", U"2", U"3", U"4" };
 
 		std::array<Palette, 4> palettes;
 		s3d::Size patchSize;
@@ -27,10 +31,12 @@ namespace nes
 
 		void Draw() override
 		{
-			// for•¶‚ğ2‚Â‘‚­‚Ì‚ÍƒpƒŒƒbƒg‚ğæ‚É•`‰æ‚µ‚È‚¢‚ÆA‘I‘ğ‚µ‚½ƒpƒŒƒbƒg‚Ì‰ºü•”‚ªã‘‚«‚³‚ê‚Ä‚µ‚Ü‚¤‚©‚ç
+			const auto& font = FontProvider::GetFont();
+
+			// foræ–‡ã‚’2ã¤æ›¸ãã®ã¯ãƒ‘ãƒ¬ãƒƒãƒˆã‚’å…ˆã«æç”»ã—ãªã„ã¨ã€é¸æŠã—ãŸãƒ‘ãƒ¬ãƒƒãƒˆã®ä¸‹ç·šéƒ¨ãŒä¸Šæ›¸ãã•ã‚Œã¦ã—ã¾ã†ã‹ã‚‰
 			for (int i = 0; i < 4; ++i)
 			{
-				FontProvider::GetFont()(i).draw(position.x, position.y + (patchSize.y * i), s3d::Palette::Black);
+				font(rowString[i]).draw(position.x + 8, position.y + (patchSize.y * i), s3d::Palette::Black);
 
 				const s3d::Point posDiff(patchSize.x, patchSize.y * i);
 				palettes[i].SetPos(position + posDiff).Draw();
@@ -38,7 +44,7 @@ namespace nes
 
 			for (int i = 0; i < 4; ++i)
 			{
-				// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‰Šú‰»‚·‚é‚Æ‚¤‚Ü‚­‘‚¯‚È‚¢‚Ì‚Å‚×‚½‘‚«
+				// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§åˆæœŸåŒ–ã™ã‚‹ã¨ã†ã¾ãæ›¸ã‘ãªã„ã®ã§ã¹ãŸæ›¸ã
 				const s3d::Point posDiff(patchSize.x, patchSize.y * i);
 				const Rect paletteRect(position + posDiff, s3d::Size(patchSize.x * 4, patchSize.y));
 
@@ -46,14 +52,26 @@ namespace nes
 					selection = i;
 
 				if (selection == (PCode)i)
-					paletteRect.drawFrame(1, s3d::Palette::Yellow);
+					paletteRect.drawFrame(1, s3d::Palette::Darkred);
 			}
 
+			// ä¸‹ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—åˆ—ã‚’æç”»
+			for (int i = 0; i < 4; ++i)
+			{
+				const s3d::Point ydiff(patchSize.x * (i + 1) + 6, patchSize.y * 4);
+				font(columnString[i]).draw(position + ydiff, s3d::Palette::Black);
+			}
+		}
+
+		void Update()
+		{
+			for (SelectionID i = 0; i < 4; ++i)
+				if (rowKeys[i].pressed()) selection = i;
 		}
 	};
 
 	/**
-	* ƒpƒŒƒbƒg‚Ìƒe[ƒuƒ‹‚ğ’ñ‹Ÿ‚·‚éƒNƒ‰ƒX
+	* ãƒ‘ãƒ¬ãƒƒãƒˆã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’æä¾›ã™ã‚‹ã‚¯ãƒ©ã‚¹
 	*/
 	class PaletteTableProvider : public SingletonProvider<PaletteTable> {};
 }

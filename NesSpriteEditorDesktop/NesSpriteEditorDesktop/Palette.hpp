@@ -1,19 +1,25 @@
-#pragma once
+Ôªø#pragma once
 #include "PaletteCode.hpp"
 #include "DrawableObject.hpp"
 
 namespace nes
 {
 	/**
-	* 4êFÉZÉbÉgÇÃÉpÉåÉbÉg
+	* 4Ëâ≤„Çª„ÉÉ„Éà„ÅÆ„Éë„É¨„ÉÉ„Éà
 	*/
 	class Palette : public DrawableObject
 	{
+		typedef unsigned int SelectionID;
+
+		const std::array<s3d::Key, 4> keys = { KeyQ, KeyW, KeyE, KeyR };
+
 		std::array<PaletteCode, 4> codes;
 		s3d::Size patchSize = s3d::Size(24, 24);
 
+		SelectionID selected = 0;
+
 	public:
-		// ÉRÉìÉXÉgÉâÉNÉ^ ---------------------------------------------------
+		// „Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø ---------------------------------------------------
 		
 		Palette(const PCode p1, const PCode p2, const PCode p3, const PCode p4)
 			: codes({ PaletteCode(p1), PaletteCode(p2), PaletteCode(p3), PaletteCode(p4)}) {}
@@ -31,7 +37,7 @@ namespace nes
 			: codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}), DrawableObject() {}
 
 
-		// ÉAÉNÉZÉT ---------------------------------------------------
+		// „Ç¢„ÇØ„Çª„Çµ ---------------------------------------------------
 
 		const PaletteCode& GetCode(const int index) const { return codes[index]; }
 
@@ -41,7 +47,7 @@ namespace nes
 
 		void SetSize(const s3d::Size& size) { patchSize = size; }
 
-		// ÉÅÉ\ÉbÉh ---------------------------------------------------
+		// „É°„ÇΩ„ÉÉ„Éâ ---------------------------------------------------
 
 		void Draw() override
 		{
@@ -51,6 +57,12 @@ namespace nes
 					.draw(codes[i].GetColor())
 					.drawFrame(1, s3d::Palette::Darkgray);
 			}
+		}
+
+		void Update()
+		{
+			for (SelectionID i = 0; i < 4; ++i)
+				if (keys[i].pressed()) selected = 0;
 		}
 	};
 }
