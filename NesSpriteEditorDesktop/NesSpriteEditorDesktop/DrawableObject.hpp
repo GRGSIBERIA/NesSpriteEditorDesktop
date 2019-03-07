@@ -20,8 +20,8 @@ namespace nes
 		/**
 		* ç¿ïWÇéwíË
 		*/
-		void SetPos(const s3d::Point& pos) { position = pos; }
+		DrawableObject& SetPos(const s3d::Point& pos) { position = pos; return *this; }
 
-		void SetPos(const int x, const int y) { position = s3d::Point(x, y); }
+		DrawableObject& SetPos(const int x, const int y) { position = s3d::Point(x, y); return *this; }
 	};
 }

@@ -45,8 +45,12 @@ namespace nes
 
 		void Draw() override
 		{
-
+			for (int i = 0; i < 4; ++i)
+			{
+				Rect(position.x + patchSize.x * i, position.y, patchSize)
+					.draw(codes[i].GetColor())
+					.drawFrame(1, s3d::Palette::Darkgray);
+			}
 		}
-
 	};
 }
