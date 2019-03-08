@@ -266,5 +266,11 @@
     <ClInclude Include="FontProvider.hpp">
       <Filter>Header Files\Provider</Filter>
     </ClInclude>
+    <ClInclude Include="Brush.hpp">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionTable.hpp">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

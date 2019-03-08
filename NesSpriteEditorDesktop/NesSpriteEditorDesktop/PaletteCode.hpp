@@ -1,44 +1,44 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D\Color.hpp>
 
 namespace nes
 {
 	class IndexOutOfRangeException : public std::exception {};
 
-	typedef unsigned char PCode;	// ”’l‚ÌƒpƒŒƒbƒgƒR[ƒhŒ^
+	typedef unsigned char PCode;	// æ•°å€¤ã®ãƒ‘ãƒ¬ãƒƒãƒˆã‚³ãƒ¼ãƒ‰å‹
 
 	/*
-	* ƒpƒŒƒbƒgƒR[ƒh
+	* ãƒ‘ãƒ¬ãƒƒãƒˆã‚³ãƒ¼ãƒ‰
 	*/
 	class PaletteCode
 	{
-		PCode code;			// F”Ô†
-		s3d::Color color;	// ÀÛ‚ÌF
+		PCode code;			// è‰²ç•ªå·
+		s3d::Color color;	// å®Ÿéš›ã®è‰²
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---------------------------------------------------
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---------------------------------------------------
 
-		// @param paletteCode FƒR[ƒh
+		// @param paletteCode è‰²ã‚³ãƒ¼ãƒ‰
 		PaletteCode(const PCode paletteCode)
 			: code((PCode)paletteCode), color(GetColor((PCode)paletteCode)) {}
 
-		// ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		PaletteCode() : code(0), color(GetColor(0)){}
 
-		// ƒIƒyƒŒ[ƒ^ ---------------------------------------------------
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ ---------------------------------------------------
 
-		PaletteCode& operator=(const PaletteCode& rhs) { code = rhs.code; color = rhs.color; }
+		PaletteCode& operator=(const PaletteCode& rhs) { code = rhs.code; color = rhs.color; return *this; }
 
-		// ƒAƒNƒZƒT ---------------------------------------------------
+		// ã‚¢ã‚¯ã‚»ã‚µ ---------------------------------------------------
 
 		const PCode GetCode() const { return code; }
 
 		const s3d::Color& GetColor() const { return color; }
 
-		// ŠÖ”‚È‚Ç ---------------------------------------------------
+		// é–¢æ•°ãªã© ---------------------------------------------------
 		
 		/**
-		* F”Ô†‚É]‚Á‚½ÀÛ‚ÌF‚ğæ“¾‚·‚éŠÖ”
+		* è‰²ç•ªå·ã«å¾“ã£ãŸå®Ÿéš›ã®è‰²ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 		*/
 		static const s3d::Color& GetColor(const PCode paletteCode)
 		{

@@ -4,28 +4,25 @@
 #include "Palette.hpp"
 #include "DrawableObject.hpp"
 #include "FontProvider.hpp"
+#include "Brush.hpp"
 
 namespace nes
 {
 	/**
 	* パレットのテーブルクラス
 	*/
-	class PaletteTable : public DrawableObject
+	class PaletteTable : public DrawableObject, public SelectionTable
 	{
 		friend SingletonProvider<PaletteTable>;
-		typedef unsigned int SelectionID;
 
-		const std::array<s3d::Key, 4> rowKeys = { Key1, Key2, Key3, Key4 };
 		const std::array<std::u32string, 4> columnString = { U"Q", U"W", U"E", U"R" };
 		const std::array<std::u32string, 4> rowString = { U"1", U"2", U"3", U"4" };
 
 		std::array<Palette, 4> palettes;
 		s3d::Size patchSize;
 
-		SelectionID selection;
-
 		PaletteTable() 
-			: selection(0), patchSize(s3d::Size(24, 24)), DrawableObject() {}
+			: patchSize(s3d::Size(24, 24)), DrawableObject(), SelectionTable({ Key1, Key2, Key3, Key4 }) {}
 
 	public:
 
@@ -46,13 +43,10 @@ namespace nes
 			{
 				// コンストラクタで初期化するとうまく書けないのでべた書き
 				const s3d::Point posDiff(patchSize.x, patchSize.y * i);
-				const Rect paletteRect(position + posDiff, s3d::Size(patchSize.x * 4, patchSize.y));
+				rects[i].setPos(position + posDiff).setSize(s3d::Size(patchSize.x * 4, patchSize.y));
 
-				if (paletteRect.leftClicked())
-					selection = i;
-
-				if (selection == (PCode)i)
-					paletteRect.drawFrame(1, s3d::Palette::Darkred);
+				if (selected == (PCode)i)
+					rects[i].drawFrame(1, s3d::Palette::Darkred);
 			}
 
 			// 下に表示する文字列を描画
@@ -61,12 +55,29 @@ namespace nes
 				const s3d::Point ydiff(patchSize.x * (i + 1) + 6, patchSize.y * 4);
 				font(columnString[i]).draw(position + ydiff, s3d::Palette::Black);
 			}
+
+			// 選択されている色を明示する
+			for (SelectionID i = 0; i < 4; ++i)
+			{
+				if (selected == (SelectionID)i)
+				{
+					const s3d::Point diff(patchSize.x * (palettes[i].GetSelected() + 1), patchSize.y * selected);
+					Circle(position + diff + (patchSize * 0.5), 3).draw().drawFrame(1, s3d::Palette::Black);
+				}
+			}
 		}
 
 		void Update()
 		{
 			for (SelectionID i = 0; i < 4; ++i)
-				if (rowKeys[i].pressed()) selection = i;
+			{
+				if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
+				{
+					BrushProvider::GetInstance().SetBrush(palettes[i].GetCode());
+				}
+
+				palettes[i].Update();
+			}
 		}
 	};
 

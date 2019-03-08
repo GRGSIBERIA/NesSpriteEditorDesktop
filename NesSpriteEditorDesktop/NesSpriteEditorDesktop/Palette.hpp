@@ -1,45 +1,31 @@
 ﻿#pragma once
 #include "PaletteCode.hpp"
 #include "DrawableObject.hpp"
+#include "SelectionTable.hpp"
+#include "Brush.hpp"
 
 namespace nes
 {
 	/**
 	* 4色セットのパレット
 	*/
-	class Palette : public DrawableObject
+	class Palette : public DrawableObject, public SelectionTable
 	{
-		typedef unsigned int SelectionID;
-
-		const std::array<s3d::Key, 4> keys = { KeyQ, KeyW, KeyE, KeyR };
-
 		std::array<PaletteCode, 4> codes;
 		s3d::Size patchSize = s3d::Size(24, 24);
-
-		SelectionID selected = 0;
 
 	public:
 		// コンストラクタ ---------------------------------------------------
 		
-		Palette(const PCode p1, const PCode p2, const PCode p3, const PCode p4)
-			: codes({ PaletteCode(p1), PaletteCode(p2), PaletteCode(p3), PaletteCode(p4)}) {}
-
-		Palette(const PaletteCode& p1, const PaletteCode& p2, const PaletteCode& p3, const PaletteCode& p4)
-			: codes({ p1, p2, p3, p4}) {}
-
-		Palette(const std::array<PCode, 4>& codes)
-			: codes({ PaletteCode(codes[0]), PaletteCode(codes[1]), PaletteCode(codes[2]), PaletteCode(codes[3]) }) {}
-
-		Palette(const std::array<PaletteCode, 4>& codes)
-			: codes(codes) {}
-
 		Palette()
-			: codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}), DrawableObject() {}
-
+			:	codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}), 
+				DrawableObject(), SelectionTable({ KeyQ, KeyW, KeyE, KeyR }) {}
 
 		// アクセサ ---------------------------------------------------
 
 		const PaletteCode& GetCode(const int index) const { return codes[index]; }
+
+		const PaletteCode& GetCode() const { return codes[selected]; }
 
 		void SetCode(const int index, const PCode p) { codes[index] = PaletteCode(p); }
 
@@ -53,7 +39,10 @@ namespace nes
 		{
 			for (int i = 0; i < 4; ++i)
 			{
-				Rect(position.x + patchSize.x * i, position.y, patchSize)
+				// 矩形の描画
+				rects[i]
+					.setPos(position.x + patchSize.x * i, position.y)
+					.setSize(patchSize)
 					.draw(codes[i].GetColor())
 					.drawFrame(1, s3d::Palette::Darkgray);
 			}
@@ -62,7 +51,12 @@ namespace nes
 		void Update()
 		{
 			for (SelectionID i = 0; i < 4; ++i)
-				if (keys[i].pressed()) selected = 0;
+			{
+				if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
+				{
+					BrushProvider::GetInstance().SetBrush(GetCode());
+				}
+			}
 		}
 	};
 }
