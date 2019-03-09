@@ -267,7 +267,7 @@
     <ClInclude Include="ColorTable.hpp" />
     <ClInclude Include="DrawableObject.hpp" />
     <ClInclude Include="FontProvider.hpp" />
-    <ClInclude Include="PaletteCode.hpp" />
+    <ClInclude Include="ColorCode.hpp" />
     <ClInclude Include="Palette.hpp" />
     <ClInclude Include="PaletteTable.hpp" />
     <ClInclude Include="SelectionTable.hpp" />

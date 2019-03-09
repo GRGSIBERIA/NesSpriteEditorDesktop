@@ -1,76 +1,66 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D.hpp>
 #include "DrawableObject.hpp"
-#include "PaletteCode.hpp"
+#include "ColorCode.hpp"
 #include "SingletonProvider.hpp"
+#include "PaletteTable.hpp"
 
 namespace nes
 {
 	/**
-	* F‚Ìƒe[ƒuƒ‹ƒNƒ‰ƒX
+	* è‰²ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¯ãƒ©ã‚¹
 	*/
 	class ColorTable : public DrawableObject
 	{
 		friend SingletonProvider<ColorTable>;
 
 		s3d::Size patchSize;
-		std::array<Rect, 0x40> paletteRects;
+		std::array<Rect, 0x40> colorRects;
+		
 
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---------------------------------------------------
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---------------------------------------------------
 
-		ColorTable(const s3d::Size& patchSize = s3d::Size(24, 24)) : patchSize(patchSize), DrawableObject()
-		{
-			for (PCode i = 0; i < 4; ++i)
-			{
-				for (PCode j = 0; j < 16; ++j)
-				{
-					const PCode index = (i << 4) | j;
-					paletteRects[index] = Rect();
-				}
-			}
-		}
+		ColorTable(const s3d::Size& patchSize = s3d::Size(24, 24)) 
+			: patchSize(patchSize), DrawableObject() { }
 
 	public:
 
-		// ƒƒ\ƒbƒh ---------------------------------------------------
+		// ãƒ¡ã‚½ãƒƒãƒ‰ ---------------------------------------------------
 
 		void Draw() override
 		{
-			for (PCode i = 0; i < 4; ++i)
+			for (CCode i = 0; i < 4; ++i)
 			{
-				for (PCode j = 0; j < 16; ++j)
+				for (CCode j = 0; j < 16; ++j)
 				{
-					const PCode index = (i << 4) | j;
-					const auto& color = PaletteCode::GetColor(index);
-					auto& palette = paletteRects[index];
+					const CCode index = (i << 4) | j;
+					const auto& color = ColorCode::GetColor(index);
 
-					palette
+					colorRects[index]
 						.setPos(Point(patchSize.x * j, patchSize.y * i) + Point(position))
 						.setSize(patchSize)
 						.draw(color)
 						.drawFrame(1, s3d::Palette::Gray);
 				}
 			}
-
-			Rect(position, s3d::Size(patchSize.x * 5, patchSize.y))
-				.drawFrame(1, s3d::Palette::Darkgray);
 		}
 
 		void Update()
 		{
-			for each (const auto& palette in paletteRects)
+			for (CCode i = 0; i < 0x40; ++i)
 			{
-				if (palette.leftClicked())
+				if (colorRects[i].leftClicked())
 				{
-					// ‘I‘ğ’†‚ÌƒpƒŒƒbƒg‚É‘Î‚µ‚ÄƒƒbƒZ[ƒW‚ğ’Ê’m
+					// é¸æŠä¸­ã®ãƒ‘ãƒ¬ãƒƒãƒˆã«å¯¾ã—ã¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€šçŸ¥
 					Logger << U"Message: leftClicked -> palette";
+					PaletteTableProvider::GetInstance().SetColor(ColorCode(i));
 				}
 			}
 		}
 	};
 
 	/**
-	* F‚Ìƒe[ƒuƒ‹‚ğ’ñ‹Ÿ‚·‚éƒNƒ‰ƒX
+	* è‰²ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’æä¾›ã™ã‚‹ã‚¯ãƒ©ã‚¹
 	*/
 	class ColorTableProvider : public SingletonProvider<ColorTable>	{};
 }

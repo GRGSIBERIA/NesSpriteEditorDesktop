@@ -5,33 +5,33 @@ namespace nes
 {
 	class IndexOutOfRangeException : public std::exception {};
 
-	typedef unsigned char PCode;	// 数値のパレットコード型
+	typedef unsigned char CCode;	// 数値のパレットコード型
 
 	/*
 	* パレットコード
 	*/
-	class PaletteCode
+	class ColorCode
 	{
-		PCode code;			// 色番号
+		CCode code;			// 色番号
 		s3d::Color color;	// 実際の色
 
 	public:
 		// コンストラクタ ---------------------------------------------------
 
-		// @param paletteCode 色コード
-		PaletteCode(const PCode paletteCode)
-			: code((PCode)paletteCode), color(GetColor((PCode)paletteCode)) {}
+		// @param code 色コード
+		ColorCode(const CCode code)
+			: code(code), color(GetColor(code)) {}
 
 		// デフォルトコンストラクタ
-		PaletteCode() : code(0), color(GetColor(0)){}
+		ColorCode() : code(0), color(GetColor(0)){}
 
 		// オペレータ ---------------------------------------------------
 
-		PaletteCode& operator=(const PaletteCode& rhs) { code = rhs.code; color = rhs.color; return *this; }
+		ColorCode& operator=(const ColorCode& rhs) { code = rhs.code; color = rhs.color; return *this; }
 
 		// アクセサ ---------------------------------------------------
 
-		const PCode GetCode() const { return code; }
+		const CCode GetCode() const { return code; }
 
 		const s3d::Color& GetColor() const { return color; }
 
@@ -40,7 +40,7 @@ namespace nes
 		/**
 		* 色番号に従った実際の色を取得する関数
 		*/
-		static const s3d::Color& GetColor(const PCode paletteCode)
+		static const s3d::Color& GetColor(const CCode ColorCode)
 		{
 			static const std::array<s3d::Color, 0x40> ColorMap = {
 				s3d::Color(U"#6B6B6B"),
@@ -109,7 +109,7 @@ namespace nes
 				s3d::Color(U"#000000"),
 			};
 
-			return ColorMap[paletteCode];
+			return ColorMap[ColorCode];
 		}
 	};
 

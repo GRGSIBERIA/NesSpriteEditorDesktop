@@ -13,7 +13,7 @@ void Main()
 	nes::PaletteTable& paletteTable = nes::PaletteTableProvider::GetInstance();
 	
 	colorTable.SetPos(Point(4, 4));
-	paletteTable.SetPos(Point(4, 24 * 4 + 8));
+	paletteTable.SetPos(Point(4, 24 * 4 + 12));
 
 	while (System::Update())
 	{

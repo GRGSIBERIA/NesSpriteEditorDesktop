@@ -245,9 +245,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PaletteCode.hpp">
-      <Filter>Header Files\Definition</Filter>
-    </ClInclude>
     <ClInclude Include="ColorTable.hpp">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
@@ -271,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="SelectionTable.hpp">
       <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorCode.hpp">
+      <Filter>Header Files\Definition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

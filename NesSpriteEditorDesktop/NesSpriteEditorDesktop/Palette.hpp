@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "PaletteCode.hpp"
+#include "ColorCode.hpp"
 #include "DrawableObject.hpp"
 #include "SelectionTable.hpp"
 #include "Brush.hpp"
@@ -11,25 +11,27 @@ namespace nes
 	*/
 	class Palette : public DrawableObject, public SelectionTable
 	{
-		std::array<PaletteCode, 4> codes;
+		std::array<ColorCode, 4> codes;
 		s3d::Size patchSize = s3d::Size(24, 24);
 
 	public:
 		// コンストラクタ ---------------------------------------------------
 		
 		Palette()
-			:	codes({ PaletteCode(0), PaletteCode(0), PaletteCode(0), PaletteCode(0)}), 
+			:	codes({ ColorCode(0), ColorCode(0), ColorCode(0), ColorCode(0)}), 
 				DrawableObject(), SelectionTable({ KeyQ, KeyW, KeyE, KeyR }) {}
 
 		// アクセサ ---------------------------------------------------
 
-		const PaletteCode& GetCode(const int index) const { return codes[index]; }
+		const ColorCode& GetCode(const int index) const { return codes[index]; }
 
-		const PaletteCode& GetCode() const { return codes[selected]; }
+		const ColorCode& GetCode() const { return codes[selected]; }
 
-		void SetCode(const int index, const PCode p) { codes[index] = PaletteCode(p); }
+		void SetCode(const int index, const CCode p) { codes[index] = ColorCode(p); }
 
-		void SetCode(const int index, const PaletteCode& p) { codes[index] = p; }
+		void SetCode(const int index, const ColorCode& p) { codes[index] = p; }
+
+		void SetCode(const ColorCode& p) { codes[selected] = p; }
 
 		void SetSize(const s3d::Size& size) { patchSize = size; }
 

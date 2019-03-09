@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "SingletonProvider.hpp"
-#include "PaletteCode.hpp"
+#include "ColorCode.hpp"
 
 namespace nes
 {
@@ -8,10 +8,10 @@ namespace nes
 	{
 		friend SingletonProvider<Brush>;
 
-		PaletteCode selectedCode;
+		ColorCode selectedCode;
 
 	public:
-		void SetBrush(const PaletteCode& code)
+		void SetBrush(const ColorCode& code)
 		{
 			selectedCode = code;
 		}

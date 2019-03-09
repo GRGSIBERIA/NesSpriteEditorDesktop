@@ -26,11 +26,17 @@ namespace nes
 
 	public:
 
+		// アクセサ ---------------------------------------------------
+
+		void SetColor(const ColorCode& code) { palettes[selected].SetCode(code); }
+
+		// メソッド ---------------------------------------------------
+
 		void Draw() override
 		{
 			const auto& font = FontProvider::GetFont();
 
-			// for文を2つ書くのはパレットを先に描画しないと、選択したパレットの下線部が上書きされてしまうから
+			// パレットを先に描画しないと選択したパレットの下線部が上書きされる
 			for (int i = 0; i < 4; ++i)
 			{
 				font(rowString[i]).draw(position.x + 8, position.y + (patchSize.y * i), s3d::Palette::Black);
@@ -45,7 +51,7 @@ namespace nes
 				const s3d::Point posDiff(patchSize.x, patchSize.y * i);
 				rects[i].setPos(position + posDiff).setSize(s3d::Size(patchSize.x * 4, patchSize.y));
 
-				if (selected == (PCode)i)
+				if (selected == (CCode)i)
 					rects[i].drawFrame(1, s3d::Palette::Darkred);
 			}
 
