@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D\Vector2D.hpp>
 #include <Siv3D\Point.hpp>
 
 namespace nes
 {
 	/**
-	* •`‰æ’ŠÛƒNƒ‰ƒX
+	* æç”»æŠ½è±¡ã‚¯ãƒ©ã‚¹
 	*/
 	class DrawableObject
 	{
@@ -18,7 +18,7 @@ namespace nes
 		virtual void Draw() = 0;
 
 		/**
-		* À•W‚ğw’è
+		* åº§æ¨™ã‚’æŒ‡å®š
 		*/
 		DrawableObject& SetPos(const s3d::Point& pos) { position = pos; return *this; }
 

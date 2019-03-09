@@ -20,8 +20,14 @@ namespace nes
 
 		// コンストラクタ ---------------------------------------------------
 
-		ColorTable(const s3d::Size& patchSize = s3d::Size(24, 24)) 
-			: patchSize(patchSize), DrawableObject() { }
+		/**
+		* カラーテーブル
+		*/
+		ColorTable(const s3d::Point& position = s3d::Point(0, 0), const s3d::Size& patchSize = s3d::Size(24, 24)) 
+			: patchSize(patchSize), DrawableObject(position) 
+		{
+			// コンストラクタでDrawableObjectの初期化ができない問題
+		}
 
 	public:
 
