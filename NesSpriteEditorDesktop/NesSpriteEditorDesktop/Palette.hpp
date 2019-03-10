@@ -53,14 +53,11 @@ namespace nes
 			}
 		}
 
-		void Update()
+		void Update() override
 		{
-			for (SelectionID i = 0; i < 4; ++i)
+			if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
 			{
-				if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
-				{
-					BrushProvider::GetInstance().SetBrush(GetCode());
-				}
+				BrushProvider::GetInstance().SetBrush(GetCode());
 			}
 		}
 	};

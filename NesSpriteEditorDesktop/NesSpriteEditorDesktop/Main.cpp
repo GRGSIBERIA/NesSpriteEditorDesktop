@@ -17,8 +17,8 @@ void Main()
 	nes::DrawArea& drawArea = nes::DrawAreaProvider::GetInstance();
 	
 	colorTable.SetPos(Point(4, 4));
-	paletteTable.SetPos(Point(4, 24 * 4 + 12));
-	drawArea.SetPos(Point(24 * 8, 24 * 7));
+	paletteTable.SetPos(Point(4, 24 * 4 + 24));
+	drawArea.SetPos(Point(24 * 7, 24 * 6));
 
 	while (System::Update())
 	{

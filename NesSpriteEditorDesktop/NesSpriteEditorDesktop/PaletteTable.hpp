@@ -75,15 +75,11 @@ namespace nes
 
 		void Update() override
 		{
-			for (SelectionID i = 0; i < 4; ++i)
-			{
-				if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
-				{
-					BrushProvider::GetInstance().SetBrush(palettes[i].GetCode());
-				}
+			if (JudgeClick() != NO_SELECT || JudgeKeys() != NO_SELECT)
+				BrushProvider::GetInstance().SetBrush(palettes[selected].GetCode());
 
+			for (SelectionID i = 0; i < 4; ++i)
 				palettes[i].Update();
-			}
 		}
 	};
 
