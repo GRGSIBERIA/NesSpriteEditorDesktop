@@ -31,6 +31,9 @@ namespace nes
 		{ 
 			codes[selected] = p; 
 			BrushProvider::GetInstance().SetBrush(p);
+
+			// 色が変更された場合は、DrawAreaだけでなく、その他のテーブルにも影響が出る
+			// まだ実装されていないが、そのうち追加しないとだめ
 		}
 
 		void SetSize(const s3d::Size& size) { patchSize = size; }
