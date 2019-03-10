@@ -27,11 +27,11 @@ namespace nes
 
 		const ColorCode& GetCode() const { return codes[selected]; }
 
-		void SetCode(const int index, const CCode p) { codes[index] = ColorCode(p); }
-
-		void SetCode(const int index, const ColorCode& p) { codes[index] = p; }
-
-		void SetCode(const ColorCode& p) { codes[selected] = p; }
+		void SetCode(const ColorCode& p) 
+		{ 
+			codes[selected] = p; 
+			BrushProvider::GetInstance().SetBrush(p);
+		}
 
 		void SetSize(const s3d::Size& size) { patchSize = size; }
 

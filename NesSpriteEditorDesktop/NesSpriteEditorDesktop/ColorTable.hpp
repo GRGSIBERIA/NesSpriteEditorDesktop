@@ -51,7 +51,7 @@ namespace nes
 			}
 		}
 
-		void Update()
+		void Update() override
 		{
 			for (CCode i = 0; i < 0x40; ++i)
 			{

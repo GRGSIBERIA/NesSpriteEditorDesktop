@@ -16,6 +16,7 @@ namespace nes
 		DrawableObject(const s3d::Point& position = s3d::Point()) : position(position) {}
 
 		virtual void Draw() = 0;
+		virtual void Update() = 0;
 
 		/**
 		* 座標を指定

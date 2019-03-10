@@ -73,7 +73,7 @@ namespace nes
 			}
 		}
 
-		void Update()
+		void Update() override
 		{
 			for (SelectionID i = 0; i < 4; ++i)
 			{

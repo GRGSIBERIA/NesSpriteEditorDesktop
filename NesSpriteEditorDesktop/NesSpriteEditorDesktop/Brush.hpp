@@ -15,6 +15,11 @@ namespace nes
 		{
 			selectedCode = code;
 		}
+
+		const ColorCode& GetBrush() const
+		{
+			return selectedCode;
+		}
 	};
 
 	class BrushProvider : public SingletonProvider<Brush> {};
