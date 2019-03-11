@@ -3,7 +3,7 @@
 
 namespace nes
 {
-	typedef unsigned int SelectionID;
+	typedef unsigned char SelectionID;
 
 	const SelectionID NO_SELECT = 0xFFFF;
 

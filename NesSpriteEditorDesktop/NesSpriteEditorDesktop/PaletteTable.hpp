@@ -5,6 +5,7 @@
 #include "DrawableObject.hpp"
 #include "FontProvider.hpp"
 #include "Brush.hpp"
+#include "Definition.hpp"
 
 namespace nes
 {
@@ -29,6 +30,8 @@ namespace nes
 		// アクセサ ---------------------------------------------------
 
 		void SetColor(const ColorCode& code) { palettes[selected].SetCode(code); }
+
+		const Palette& GetPalette(const PaletteID id) { return palettes[id]; }
 
 		// メソッド ---------------------------------------------------
 

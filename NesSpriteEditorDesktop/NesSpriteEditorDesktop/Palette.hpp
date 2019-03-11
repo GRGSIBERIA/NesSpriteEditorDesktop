@@ -3,6 +3,7 @@
 #include "DrawableObject.hpp"
 #include "SelectionTable.hpp"
 #include "Brush.hpp"
+#include "Definition.hpp"
 
 namespace nes
 {
@@ -23,7 +24,7 @@ namespace nes
 
 		// アクセサ ---------------------------------------------------
 
-		const ColorCode& GetCode(const int index) const { return codes[index]; }
+		const ColorCode& GetCode(const ColorID index) const { return codes[index]; }
 
 		const ColorCode& GetCode() const { return codes[selected]; }
 

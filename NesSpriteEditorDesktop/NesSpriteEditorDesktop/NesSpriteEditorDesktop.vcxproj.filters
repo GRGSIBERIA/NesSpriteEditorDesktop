@@ -278,5 +278,11 @@
     <ClInclude Include="DrawArea.hpp">
       <Filter>Header Files\Table</Filter>
     </ClInclude>
+    <ClInclude Include="Character.hpp">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Definition.hpp">
+      <Filter>Header Files\Definition</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -264,7 +264,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brush.hpp" />
+    <ClInclude Include="Character.hpp" />
     <ClInclude Include="ColorTable.hpp" />
+    <ClInclude Include="Definition.hpp" />
     <ClInclude Include="DrawableObject.hpp" />
     <ClInclude Include="DrawArea.hpp" />
     <ClInclude Include="FontProvider.hpp" />
