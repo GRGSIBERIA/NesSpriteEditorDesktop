@@ -273,6 +273,7 @@
     <ClInclude Include="ColorCode.hpp" />
     <ClInclude Include="Palette.hpp" />
     <ClInclude Include="PaletteTable.hpp" />
+    <ClInclude Include="PatternTable.hpp" />
     <ClInclude Include="SelectionTable.hpp" />
     <ClInclude Include="SingletonProvider.hpp" />
   </ItemGroup>

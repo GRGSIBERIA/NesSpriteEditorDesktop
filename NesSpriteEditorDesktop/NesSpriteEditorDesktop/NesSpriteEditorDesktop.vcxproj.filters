@@ -284,5 +284,8 @@
     <ClInclude Include="Definition.hpp">
       <Filter>Header Files\Definition</Filter>
     </ClInclude>
+    <ClInclude Include="PatternTable.hpp">
+      <Filter>Header Files\Table</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

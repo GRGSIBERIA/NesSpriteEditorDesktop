@@ -18,11 +18,12 @@ namespace nes
 		virtual void Draw() = 0;
 		virtual void Update() = 0;
 
-		/**
-		* 座標を指定
-		*/
+		// アクセサ ---------------------------------------------------
+
 		virtual DrawableObject& SetPos(const s3d::Point& pos) { position = pos; return *this; }
 
 		virtual DrawableObject& SetPos(const int x, const int y) { position = s3d::Point(x, y); return *this; }
+
+		const s3d::Point& GetPos() const { return position; }
 	};
 }

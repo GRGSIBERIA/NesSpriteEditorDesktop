@@ -53,6 +53,11 @@ namespace nes
 			character.SetPos(pos);
 			return *this; 
 		}
+
+		void SetCharacter(const Character& lhs)
+		{
+			character.Copy(lhs);
+		}
 	};
 
 	class DrawAreaProvider : public SingletonProvider<DrawArea> {};

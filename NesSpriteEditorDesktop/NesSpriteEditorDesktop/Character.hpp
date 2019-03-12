@@ -12,13 +12,23 @@ namespace nes
 		std::array<ColorID, 64> colorIds;	// ドットごとに使用している色ID
 		std::array<s3d::Rect, 64> rects;
 		s3d::Size patchSize;
-		const bool enablePixelHitTest;
+		bool enablePixelHitTest;
 
 	public:
 		Character(const bool enablePixelHitTest = false, const s3d::Size patchSize = s3d::Size(24, 24)) 
 			: enablePixelHitTest(enablePixelHitTest),  patchSize(patchSize), paletteId(0) 
 		{
 			colorIds.fill(0);
+		}
+
+		Character& operator=(const Character& lhs)
+		{
+			paletteId = lhs.paletteId;
+			colorIds = lhs.colorIds;
+			rects = lhs.rects;
+			patchSize = lhs.patchSize;
+			enablePixelHitTest = lhs.enablePixelHitTest;
+			return *this;
 		}
 
 		// メソッド ---------------------------------------------------
@@ -63,5 +73,15 @@ namespace nes
 		// アクセサ ---------------------------------------------------
 
 		const s3d::Size& GetPatchSize() const { return patchSize; }
+
+		const s3d::Size GetCharacterSize() const { return patchSize * 8; }
+
+		Character& Copy(const Character& lhs)
+		{
+			paletteId = lhs.paletteId;
+			colorIds = lhs.colorIds;
+			rects = lhs.rects;
+			return *this;
+		}
 	};
 }
