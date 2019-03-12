@@ -31,9 +31,11 @@ namespace nes
 
 		void SetColor(const ColorCode& code) { palettes[selected].SetCode(code); }
 
-		const Palette& GetPalette(const PaletteID id) { return palettes[id]; }
+		const Palette& GetPalette(const PaletteID id) const { return palettes[id]; }
 
-		const SelectionID GetSelectedColorID() { return palettes[selected].GetSelected(); }
+		const SelectionID GetSelectedColorID() const { return palettes[selected].GetSelected(); }
+
+		const SelectionID GetSelectedPaletteID() const { return selected; }
 
 		// メソッド ---------------------------------------------------
 

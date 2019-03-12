@@ -21,6 +21,8 @@ namespace nes
 			colorIds.fill(0);
 		}
 
+		// メソッド ---------------------------------------------------
+
 		void Draw() override
 		{
 			const auto& palette = PaletteTableProvider::GetInstance().GetPalette(paletteId);
@@ -46,6 +48,8 @@ namespace nes
 			// ピクセルの当たり判定
 			if (enablePixelHitTest)
 			{
+				paletteId = PaletteTableProvider::GetInstance().GetSelectedPaletteID();
+
 				for (PixelID id = 0; id < 64; ++id)
 				{
 					if (rects[id].leftPressed())
@@ -55,5 +59,9 @@ namespace nes
 				}
 			}
 		}
+
+		// アクセサ ---------------------------------------------------
+
+		const s3d::Size& GetPatchSize() const { return patchSize; }
 	};
 }
