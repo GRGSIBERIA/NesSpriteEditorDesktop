@@ -33,6 +33,8 @@ namespace nes
 
 		const Palette& GetPalette(const PaletteID id) { return palettes[id]; }
 
+		const SelectionID GetSelectedColorID() { return palettes[selected].GetSelected(); }
+
 		// メソッド ---------------------------------------------------
 
 		void Draw() override

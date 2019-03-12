@@ -5,7 +5,7 @@ namespace nes
 {
 	typedef unsigned char SelectionID;
 
-	const SelectionID NO_SELECT = 0xFFFF;
+	const SelectionID NO_SELECT = 0xFF;
 
 	/**
 	* 選択可能なテーブルクラス

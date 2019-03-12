@@ -21,8 +21,8 @@ namespace nes
 		/**
 		* 座標を指定
 		*/
-		DrawableObject& SetPos(const s3d::Point& pos) { position = pos; return *this; }
+		virtual DrawableObject& SetPos(const s3d::Point& pos) { position = pos; return *this; }
 
-		DrawableObject& SetPos(const int x, const int y) { position = s3d::Point(x, y); return *this; }
+		virtual DrawableObject& SetPos(const int x, const int y) { position = s3d::Point(x, y); return *this; }
 	};
 }

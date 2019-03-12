@@ -12,11 +12,14 @@ namespace nes
 		std::array<ColorID, 64> colorIds;	// ドットごとに使用している色ID
 		std::array<s3d::Rect, 64> rects;
 		s3d::Size patchSize;
-		const bool enableUpdate;
+		const bool enablePixelHitTest;
 
 	public:
-		Character(const bool enableUpdate = false, const s3d::Size patchSize = s3d::Size(24, 24)) 
-			: enableUpdate(enableUpdate),  patchSize(patchSize), paletteId(0) {}
+		Character(const bool enablePixelHitTest = false, const s3d::Size patchSize = s3d::Size(24, 24)) 
+			: enablePixelHitTest(enablePixelHitTest),  patchSize(patchSize), paletteId(0) 
+		{
+			colorIds.fill(0);
+		}
 
 		void Draw() override
 		{
@@ -40,13 +43,15 @@ namespace nes
 
 		void Update() override
 		{
-			if (!enableUpdate) return;
-
-			for (PixelID id = 0; id < 64; ++id)
+			// ピクセルの当たり判定
+			if (enablePixelHitTest)
 			{
-				if (rects[id].leftClicked())
+				for (PixelID id = 0; id < 64; ++id)
 				{
-					colorIds[id] = BrushProvider::GetInstance().GetSelectedColorID();
+					if (rects[id].leftPressed())
+					{
+						colorIds[id] = PaletteTableProvider::GetInstance().GetSelectedColorID();
+					}
 				}
 			}
 		}
