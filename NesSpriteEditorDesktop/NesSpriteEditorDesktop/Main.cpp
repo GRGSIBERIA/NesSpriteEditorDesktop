@@ -16,24 +16,24 @@ void Main()
 	nes::ColorTable& colorTable = nes::ColorTableProvider::GetInstance();
 	nes::PaletteTable& paletteTable = nes::PaletteTableProvider::GetInstance();
 	nes::DrawArea& drawArea = nes::DrawAreaProvider::GetInstance();
-	nes::SpritePatternTable& spritePatternTable = nes::SpritePatternProvider::GetInstance();
+	nes::PatternTableSelector& pattern = nes::PatternTableSelector::GetInstance();
 	
 	colorTable.SetPos(Point(4, 4));
 	paletteTable.SetPos(Point(4, 24 * 4 + 24));
 	drawArea.SetPos(Point(24 * 7, 24 * 6));
-	spritePatternTable.SetPos(Point(24 * 16, 24 * 6));
+	pattern.SetPos(Point(24 * 16, 24 * 6));
 
 	while (System::Update())
 	{
 		colorTable.Update();
 		paletteTable.Update();
 		drawArea.Update();
-		spritePatternTable.Update();
+		pattern.Update();
 
 		colorTable.Draw();
 		paletteTable.Draw();
 		drawArea.Draw();
-		spritePatternTable.Draw();
+		pattern.Draw();
 
 		Circle(Cursor::Pos(), 10).draw(ColorF(1, 0, 0, 0.5));
 	}

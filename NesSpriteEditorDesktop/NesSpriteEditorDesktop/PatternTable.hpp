@@ -2,6 +2,7 @@
 #include "DrawableObject.hpp"
 #include "SingletonProvider.hpp"
 #include "Character.hpp"
+#include "FontProvider.hpp"
 
 namespace nes
 {
@@ -61,6 +62,10 @@ namespace nes
 				}
 			}
 		}
+
+		// アクセサ ---------------------------------------------------
+
+		const s3d::Size& GetPatchSize() const { return characters[selected].GetPatchSize(); }
 	};
 
 	class BGPatternTable : public PatternTable
@@ -85,7 +90,7 @@ namespace nes
 	* ボタン等が押されたらBGとスプライトで表示を切り替えられる仕様が望ましい
 	* BGとスプライトで機能の拡張は行わないので共通して使用できる
 	*/
-	class PatternTableSelector : public SingletonProvider<PatternTableSelector>
+	class PatternTableSelector : public SingletonProvider<PatternTableSelector>, public DrawableObject
 	{
 		// 基本的にそれぞれ1つずつ存在しなければならないので個別のクラスに分けた
 		BGPatternTable* bg;
@@ -95,7 +100,9 @@ namespace nes
 
 	public:
 		PatternTableSelector() 
-			: bg(&BGPatternProvider::GetInstance()), sprite(&SpritePatternProvider::GetInstance())
+			: 
+			bg(&BGPatternProvider::GetInstance()), sprite(&SpritePatternProvider::GetInstance()),
+			DrawableObject()
 		{
 			selector = sprite;
 		}
@@ -114,6 +121,25 @@ namespace nes
 			return *selector;
 		}
 
+		void Draw() override
+		{
+			selector->Draw();
+
+			const auto& size = selector->GetPatchSize();
+			const s3d::Point diff(0, size.y);
+			const int mag = 13;
+
+			if (selector == sprite)
+				FontProvider::GetFont()(U"Spriter Pattern").draw(position - diff * mag, s3d::Palette::Black);
+			else
+				FontProvider::GetFont()(U"BG Pattern Table").draw(position - diff * mag, s3d::Palette::Black);
+		}
+
+		void Update() override
+		{
+			selector->Update();
+		}
+
 		// アクセサ ---------------------------------------------------
 
 		/**
@@ -122,6 +148,22 @@ namespace nes
 		PatternTable& GetShownTable() const
 		{
 			return *selector;
+		}
+
+		DrawableObject& SetPos(const s3d::Point& pos) override 
+		{ 
+			position = pos;
+			bg->SetPos(position);
+			sprite->SetPos(position);
+			return *this; 
+		}
+
+		DrawableObject& SetPos(const int x, const int y) override
+		{
+			position = s3d::Point(x, y);
+			bg->SetPos(position);
+			sprite->SetPos(position);
+			return *this;
 		}
 	};
 }
