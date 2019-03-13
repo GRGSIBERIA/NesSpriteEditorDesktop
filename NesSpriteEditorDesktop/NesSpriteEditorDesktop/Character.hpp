@@ -3,9 +3,14 @@
 #include "Definition.hpp"
 #include "DrawableObject.hpp"
 #include "PaletteTable.hpp"
+//#include "PatternTable.hpp"	// include すると相互参照
 
 namespace nes
 {
+	/**
+	* 8x8ピクセルで表されるキャラクタークラス
+	* 描画エリアやパターンテーブルなどで共通で使用する
+	*/
 	class Character : public DrawableObject
 	{
 		PaletteID paletteId;				// 使用しているパレットID
@@ -55,8 +60,7 @@ namespace nes
 
 		void Update() override
 		{
-			// ピクセルの当たり判定
-			if (enablePixelHitTest)
+			if (enablePixelHitTest)	// ピクセルの当たり判定
 			{
 				paletteId = PaletteTableProvider::GetInstance().GetSelectedPaletteID();
 
@@ -64,7 +68,11 @@ namespace nes
 				{
 					if (rects[id].leftPressed())
 					{
+						// 左クリックされたら色を塗り替える
 						colorIds[id] = PaletteTableProvider::GetInstance().GetSelectedColorID();
+
+						// パターンテーブルを参照して該当するテーブルの色をすべて塗り替える
+						// ここに書くべきかどうかは怪しい
 					}
 				}
 			}

@@ -55,7 +55,7 @@ namespace nes
 				const auto& size = hitchar.GetCharacterSize();
 				if (Rect(hitchar.GetPos(), size).leftClicked())
 				{
-					selected = (SelectionID)i;	// ヒットしたら描画エリアのキャラクターを入れ替える
+					selected = (SelectionID)i;	// 描画エリアのキャラクターを入れ替える
 					DrawAreaProvider::GetInstance().SetCharacter(hitchar);
 					break;
 				}
@@ -76,4 +76,52 @@ namespace nes
 	class BGPatternProvider : public SingletonProvider<BGPatternTable> {};
 
 	class SpritePatternProvider : public SingletonProvider<SpritePatternTable> {};
+
+
+
+
+	/**
+	* パターンテーブルの種類単位で切り替えられるクラス
+	* ボタン等が押されたらBGとスプライトで表示を切り替えられる仕様が望ましい
+	* BGとスプライトで機能の拡張は行わないので共通して使用できる
+	*/
+	class PatternTableSelector : public SingletonProvider<PatternTableSelector>
+	{
+		// 基本的にそれぞれ1つずつ存在しなければならないので個別のクラスに分けた
+		BGPatternTable* bg;
+		SpritePatternTable* sprite;
+
+		PatternTable* selector;
+
+	public:
+		PatternTableSelector() 
+			: bg(&BGPatternProvider::GetInstance()), sprite(&SpritePatternProvider::GetInstance())
+		{
+			selector = sprite;
+		}
+
+		/**
+		* bgもしくはspriteの表示を入れ替える
+		*/
+		PatternTable& Toggle()
+		{
+			// 三項演算子の変換がうまくいかない
+			if (selector == sprite)
+				selector = bg;
+			else
+				selector = sprite;
+
+			return *selector;
+		}
+
+		// アクセサ ---------------------------------------------------
+
+		/**
+		* 現在表示されているテーブルを返す
+		*/
+		PatternTable& GetShownTable() const
+		{
+			return *selector;
+		}
+	};
 }

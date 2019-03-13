@@ -47,6 +47,8 @@ namespace nes
 			character.Update();
 		}
 
+		// アクセサ ---------------------------------------------------
+
 		DrawableObject& SetPos(const s3d::Point& pos) override 
 		{ 
 			position = pos;
