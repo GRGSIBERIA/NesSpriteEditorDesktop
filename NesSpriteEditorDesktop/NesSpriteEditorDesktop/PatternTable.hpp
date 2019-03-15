@@ -125,10 +125,10 @@ namespace nes
 		{
 			selector->Draw();
 
+			// 現在表示中のパターンテーブルの種類を描画する
 			const auto& size = selector->GetPatchSize();
 			const s3d::Point diff(0, size.y);
 			const int mag = 13;
-
 			if (selector == sprite)
 				FontProvider::GetFont()(U"Spriter Pattern").draw(position - diff * mag, s3d::Palette::Black);
 			else
